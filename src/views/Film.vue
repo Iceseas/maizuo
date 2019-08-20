@@ -73,4 +73,9 @@ export default {
     height: 60px;
     z-index: 999;
 }
+.swiper-pagination{
+    text-align: right;
+    padding-right: 20px;
+    box-sizing: border-box; 
+}
 </style>

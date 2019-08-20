@@ -10,7 +10,7 @@
 # 接口
   
 
-用途| 接口
+用途| 接口url
 ---|---
 获取相应电影的内容 | https://m.maizuo.com/gateway?filmId=${this.$route.params.filmid}&k=7015510
 获取正在热映 | https://m.maizuo.com/gateway?cityId=210200&pageNum=1&pageSize=10&type=1&k=9604590

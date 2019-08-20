@@ -1,3 +1,5 @@
+# 卖座移动端网页平台的开发
+# 环境+工具
   1. VUE相关：Vue Cli,Vue.js,Vue.Vuex,Vue.Router
   2. 运行环境：window 10
   3. 接口：均用卖座网的真实接口进行数据获取

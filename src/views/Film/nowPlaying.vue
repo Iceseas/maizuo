@@ -1,6 +1,6 @@
 <template>
         <ul class="nowpl-ul">
-			<li class="nowpl-ul-li" v-for="data in nowpljsons" :key="data.filmId" >
+			<li class="nowpl-ul-li" v-for="data in $store.state.NowPlayinglistData" :key="data.filmId" >
 				<div class="nowpl-ul-li-pic fl" @click="checkDetail(data.filmId)">
 					<img class="nowpl-img" :src="data.poster" >
 				</div>
@@ -23,7 +23,6 @@
 		</ul>
 </template>
 <script>
-import axios from 'axios'
 import '@/filter/actorfilter.js'
 
 export default {
@@ -40,18 +39,14 @@ export default {
 		}
 	},
 	mounted() {
-		axios({
-			url: 'https://m.maizuo.com/gateway?cityId=210200&pageNum=1&pageSize=10&type=1&k=9604590',
-			methods: 'get',
-			headers: {
-				'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15656848532164663517222"}',
-				'X-Host': 'mall.film-ticket.film.list'
-				}
-			}).then((res) => {
-			this.nowpljsons = res.data.data.films;	
-		});
-		
-		
+		if(this.$store.state.ComingSoonlistData.length === 0){
+			//数据请求 -存储store
+			this.$store.dispatch('GetNowPlayingDate')
+		}
+		else{
+			//使用缓存
+			console.log('使用缓存')
+		}
 	},
 }
 </script>

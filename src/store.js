@@ -1,12 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
         isfilmfooNavShow: true,
-        isDetailBuyShow: true
+        isDetailBuyShow: true,
+        ComingSoonlistData: [],
+        NowPlayinglistData: []
     },
     mutations: {
         //显示底部导航
@@ -24,9 +27,38 @@ export default new Vuex.Store({
         },
         DetailNavHide(state, loop) {
             state.isDetailBuyShow = loop;
+        },
+        cacheComingSoonlistAjax(state, loop) {
+            state.ComingSoonlistData = loop;
+        },
+        cacheNowplayinglistAjax(state, loop) {
+            state.NowPlayinglistData = loop;
         }
     },
     actions: {
-
+        GetComingSoonDate(store) {
+            axios({
+                url: 'https://m.maizuo.com/gateway?cityId=210200&pageNum=1&pageSize=10&type=2&k=9800611',
+                methods: 'get',
+                headers: {
+                    'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15656848532164663517222"}',
+                    'X-Host': 'mall.film-ticket.film.list'
+                }
+            }).then((res) => {
+                store.commit('cacheComingSoonlistAjax', res.data.data.films);
+            });
+        },
+        GetNowPlayingDate(store) {
+            axios({
+                url: 'https://m.maizuo.com/gateway?cityId=210200&pageNum=1&pageSize=10&type=1&k=9604590',
+                methods: 'get',
+                headers: {
+                    'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15656848532164663517222"}',
+                    'X-Host': 'mall.film-ticket.film.list'
+                }
+            }).then((res) => {
+                store.commit('cacheNowplayinglistAjax', res.data.data.films);
+            });
+        }
     }
 })

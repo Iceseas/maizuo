@@ -25,6 +25,7 @@ export default {
     height: 60px;
     text-align: center;
     line-height: 60px;
+    font-size: 14px;
 }
 .headNavActive{
     color: #f39c12;

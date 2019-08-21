@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import { Indicator } from 'mint-ui';
 
 Vue.use(Vuex)
 
@@ -9,7 +10,7 @@ export default new Vuex.Store({
         isfilmfooNavShow: true,
         isDetailBuyShow: true,
         ComingSoonlistData: [],
-        NowPlayinglistData: []
+        NowPlayinglistData: [],
     },
     mutations: {
         //显示底部导航
@@ -33,10 +34,15 @@ export default new Vuex.Store({
         },
         cacheNowplayinglistAjax(state, loop) {
             state.NowPlayinglistData = loop;
-        }
+        },
+
     },
     actions: {
         GetComingSoonDate(store) {
+            Indicator.open({
+                text: '加载中...',
+                spinnerType: 'fading-circle'
+            });
             axios({
                 url: 'https://m.maizuo.com/gateway?cityId=210200&pageNum=1&pageSize=10&type=2&k=9800611',
                 methods: 'get',
@@ -46,9 +52,14 @@ export default new Vuex.Store({
                 }
             }).then((res) => {
                 store.commit('cacheComingSoonlistAjax', res.data.data.films);
+                Indicator.close();
             });
         },
         GetNowPlayingDate(store) {
+            Indicator.open({
+                text: '加载中...',
+                spinnerType: 'fading-circle'
+            });
             axios({
                 url: 'https://m.maizuo.com/gateway?cityId=210200&pageNum=1&pageSize=10&type=1&k=9604590',
                 methods: 'get',
@@ -58,7 +69,8 @@ export default new Vuex.Store({
                 }
             }).then((res) => {
                 store.commit('cacheNowplayinglistAjax', res.data.data.films);
+                Indicator.close();
             });
-        }
+        },
     }
 })

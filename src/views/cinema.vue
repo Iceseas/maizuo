@@ -27,12 +27,14 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import axios from 'axios'
 import BScroll from '@better-scroll/core'
 import ScrollBar from '@better-scroll/scroll-bar'
-import Vue from 'vue'
+import { Indicator } from 'mint-ui';
 
 BScroll.use(ScrollBar);
+
 
 Vue.filter('lowpriceFilter',(data)=>{
     return data/100;
@@ -47,23 +49,31 @@ export default {
 	},
 	mounted(){
 		this.sreenheight = document.documentElement.clientHeight - 140 +'px';
-		axios({
-			url:'https://m.maizuo.com/gateway?cityId=110100&ticketFlag=1&k=1573618',
-			methods: 'get',
-			headers:{
-				'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15656848532164663517222"}',
-				'X-Host': 'mall.film-ticket.cinema.list'
-			}
-		}).then((res)=>{
-			console.log(res.data.data.cinemas)
-			this.cinemas = res.data.data.cinemas;
-			this.$nextTick(()=>{
-		new BScroll('.cinemas-scroll',{
-			scrollY: true,
-			scrollbar: true,
+		Indicator.open({
+		text: '加载中...',
+		spinnerType: 'fading-circle'
 		});
-	})
-		})
+		axios({
+                url: 'https://m.maizuo.com/gateway?cityId=110100&ticketFlag=1&k=1573618',
+                methods: 'get',
+                headers: {
+                    'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15656848532164663517222"}',
+                    'X-Host': 'mall.film-ticket.cinema.list'
+                }
+            }).then((res) => {
+                //console.log(res.data.data.cinemas)
+                this.cinemas = res.data.data.cinemas;
+				this.$nextTick(() => {
+                    new BScroll('.cinemas-scroll', {
+                        scrollY: true,
+                        scrollbar: true,
+					});
+					Indicator.close();
+                })
+            })
+			
+		
+		
 	}
 }
 </script>

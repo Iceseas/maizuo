@@ -25,6 +25,7 @@
 <script>
 import '@/filter/actorfilter.js'
 
+
 export default {
 	data(){
 		return {
@@ -38,15 +39,16 @@ export default {
 			this.$router.push(`/detail/${id}`);
 		}
 	},
-	mounted() {
+	mounted() {	
 		if(this.$store.state.ComingSoonlistData.length === 0){
 			//数据请求 -存储store
 			this.$store.dispatch('GetNowPlayingDate')
 		}
-		else{
-			//使用缓存
-			console.log('使用缓存')
-		}
+		// else{
+		// 	//使用缓存
+			
+		// 	console.log('使用缓存')
+		// }
 	},
 }
 </script>

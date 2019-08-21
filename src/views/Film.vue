@@ -12,6 +12,7 @@
 import filmeswiper from '@/views/Film/filmSwiper';
 import filmHeadNav from '@/views/Film/nowPlaying/headNav'
 
+
 export default {
     components:{
         filmeswiper,

@@ -53,6 +53,7 @@ import '@/filter/actorsimgfilter.js'
 import '@/filter/actorsRolefilter.js'
 import Swiper from '@/components/Swiper'
 import SwiperAuto from '@/components/SwiperAuto'
+import { Indicator } from 'mint-ui';
 
 export default {
     data(){
@@ -80,6 +81,10 @@ export default {
         this.$store.commit('DetailNavShow',true)
         //根据路由得到点击的电影id
         //console.log(this.$route.params.filmid)
+        Indicator.open({
+		text: '加载中...',
+		spinnerType: 'fading-circle'
+		});
         axios({
             url:`https://m.maizuo.com/gateway?filmId=${this.$route.params.filmid}&k=7015510`,
             methods:'get',
@@ -90,6 +95,7 @@ export default {
         }).then(res=>{
             console.log(res.data.data.film)
             this.details = res.data.data.film;
+            Indicator.close();
         }).catch((err)=>{
             console.log(err);
         });

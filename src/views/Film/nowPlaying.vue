@@ -1,5 +1,8 @@
 <template>
-        <ul class="nowpl-ul">
+        <ul class="nowpl-ul" v-infinite-scroll="loadMore" 
+		infinite-scroll-immediate-check="true"
+		:infinite-scroll-disabled="$store.state.NowPlayingisInfinite"
+		>
 			<li class="nowpl-ul-li" v-for="data in $store.state.NowPlayinglistData" :key="data.filmId" >
 				<div class="nowpl-ul-li-pic fl" @click="checkDetail(data.filmId)">
 					<img class="nowpl-img" :src="data.poster" >
@@ -30,13 +33,30 @@ export default {
 	data(){
 		return {
 			nowpljsons:{},
-			obj:[]
+			obj:[],
+			count:1
 		}
 	},
 	methods:{
 		checkDetail(id){
 			//跳转路由，编程式导航
 			this.$router.push(`/detail/${id}`);
+		},
+		loadMore(){
+			if(this.$store.state.NowPlayingDataGet){
+			//请求的页数加一
+			this.count++;
+			//请求数据过程中开启无限滚轮禁用
+			this.$store.commit('NowPlayingInfinite',true);
+			//传递要获取的数据页数
+			this.$store.commit('NowPlayingScrollDownchangeNum',(this.count));
+			//调用store中的请求数据
+			this.$store.dispatch('GetNowPlayingDate')
+			}
+			else{
+				return;
+			}
+			
 		}
 	},
 	mounted() {	

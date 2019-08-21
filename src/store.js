@@ -7,16 +7,23 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
+        //控制底部导航显示
         isfilmfooNavShow: true,
         isDetailBuyShow: true,
+        //comingsoon组件数据
         ComingSoonlistData: [],
+        ComingSoonAjaxNum: 1,
+        ComingSoonisInfinite: false,
+        ComingSoonDataGet: true,
+        //nowplaying组件数据
         NowPlayinglistData: [],
+        NowPlayingAjaxNum: 1,
+        NowPlayingisInfinite: false,
+        NowPlayingDataGet: true
     },
     mutations: {
         //显示底部导航
         FooNavShow(state, loop) {
-            // console.log(state)这个是获取上面state里面的值
-            // console.log(loop)这个是传过来的值
             state.isfilmfooNavShow = loop;
         },
         //隐藏底部导航
@@ -30,12 +37,30 @@ export default new Vuex.Store({
             state.isDetailBuyShow = loop;
         },
         cacheComingSoonlistAjax(state, loop) {
-            state.ComingSoonlistData = loop;
+            //拼接新老数据
+            state.ComingSoonlistData = [...state.ComingSoonlistData, ...loop];
         },
+        //缓存请求的数据
         cacheNowplayinglistAjax(state, loop) {
-            state.NowPlayinglistData = loop;
+            //拼接新老数据
+            state.NowPlayinglistData = [...state.NowPlayinglistData, ...loop];
         },
-
+        //改变请求的页数
+        ComingSoonScrollDownchangeNum(state, loop) {
+            state.ComingSoonAjaxNum = loop;
+        },
+        //判断是否开启无限滚轮
+        ComingSoonInfinite(state, loop) {
+            state.ComingSoonisInfinite = loop;
+        },
+        //改变请求的页数
+        NowPlayingScrollDownchangeNum(state, loop) {
+            state.NowPlayingAjaxNum = loop;
+        },
+        //判断是否开启无限滚轮
+        NowPlayingInfinite(state, loop) {
+            state.NowPlayingisInfinite = loop;
+        },
     },
     actions: {
         GetComingSoonDate(store) {
@@ -44,15 +69,23 @@ export default new Vuex.Store({
                 spinnerType: 'fading-circle'
             });
             axios({
-                url: 'https://m.maizuo.com/gateway?cityId=210200&pageNum=1&pageSize=10&type=2&k=9800611',
+                url: `https://m.maizuo.com/gateway?cityId=210200&pageNum=${store.state.ComingSoonAjaxNum}&pageSize=10&type=2&k=9800611`,
                 methods: 'get',
                 headers: {
                     'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15656848532164663517222"}',
                     'X-Host': 'mall.film-ticket.film.list'
                 }
             }).then((res) => {
+                //判断是否请求完数据，如果请求完，禁用下拉请求数据事件
+                if (res.data.data.films.length == 0) {
+                    store.state.ComingSoonDataGet = false;
+                }
+                //调用方法处理数据
                 store.commit('cacheComingSoonlistAjax', res.data.data.films);
+                //已请求完数据，关闭等待动画
                 Indicator.close();
+                //请求完数据，开启滚轮
+                store.state.ComingSoonisInfinite = false;
             });
         },
         GetNowPlayingDate(store) {
@@ -61,15 +94,19 @@ export default new Vuex.Store({
                 spinnerType: 'fading-circle'
             });
             axios({
-                url: 'https://m.maizuo.com/gateway?cityId=210200&pageNum=1&pageSize=10&type=1&k=9604590',
+                url: `https://m.maizuo.com/gateway?cityId=210200&pageNum=${store.state.NowPlayingAjaxNum}&pageSize=10&type=1&k=9604590`,
                 methods: 'get',
                 headers: {
                     'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15656848532164663517222"}',
                     'X-Host': 'mall.film-ticket.film.list'
                 }
             }).then((res) => {
+                if (res.data.data.films.length == 0) {
+                    store.state.NowPlayingDataGet = false;
+                }
                 store.commit('cacheNowplayinglistAjax', res.data.data.films);
                 Indicator.close();
+                store.state.NowPlayingisInfinite = false;
             });
         },
     }

@@ -17,6 +17,7 @@
 获取正在热映 | https://m.maizuo.com/gateway?cityId=210200&pageNum=1&pageSize=10&type=1&k=9604590
 获取即将上映 | https://m.maizuo.com/gateway?cityId=210200&pageNum=1&pageSize=10&type=2&k=9800611
 获取头部轮播 | https://m.maizuo.com/gateway?type=2&cityId=210200&k=9912477
+获取城市信息 | https://m.maizuo.com/gateway?k=2871341
 
 
 

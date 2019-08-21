@@ -7,6 +7,7 @@
   5. 构建工具:babel.js,webpack等
   6. 组件库：npm
   7. 运用的组件：axios,swiper,better-scroll等
+  8. UI组件：mint UI
 # 接口
   
 

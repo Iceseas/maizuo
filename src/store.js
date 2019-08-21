@@ -47,7 +47,7 @@ export default new Vuex.Store({
         cacheNowplayinglistAjax(state, loop) {
             //拼接新老数据
             state.NowPlayinglistData = [...state.NowPlayinglistData, ...loop];
-            state.NowPlayingtotal = state.NowPlayinglistData.length;
+
         },
         //改变请求的页数
         ComingSoonScrollDownchangeNum(state, loop) {
@@ -68,7 +68,6 @@ export default new Vuex.Store({
     },
     actions: {
         GetComingSoonDate(store) {
-
             Indicator.open({
                 text: '加载中...',
                 spinnerType: 'fading-circle'
@@ -91,7 +90,6 @@ export default new Vuex.Store({
                 store.commit('cacheComingSoonlistAjax', res.data.data.films);
                 //已请求完数据，关闭等待动画
                 Indicator.close();
-
                 //请求完数据，开启滚轮
                 store.state.ComingSoonisInfinite = false;
             });
@@ -109,12 +107,15 @@ export default new Vuex.Store({
                     'X-Host': 'mall.film-ticket.film.list'
                 }
             }).then((res) => {
-                if (res.data.data.total == store.state.NowPlayingtotal) {
+                if (res.data.data.films.length == 0) {
+
                     store.state.NowPlayingDataGet = false;
                 }
-                console.log(res.data)
+                //调用方法处理数据
                 store.commit('cacheNowplayinglistAjax', res.data.data.films);
+                //已请求完数据，关闭等待动画
                 Indicator.close();
+                //请求完数据，开启滚轮
                 store.state.NowPlayingisInfinite = false;
             });
         },

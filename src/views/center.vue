@@ -115,7 +115,7 @@ export default {
 	top: 50%;
 	transform: translateY(-50%);
 	left: 50px;
-	font-size: 16px;
+	font-size: 14px;
 }
 .center-selections-right{
 	position: absolute;

@@ -68,15 +68,13 @@ export default {
 		}
 	},
 	mounted() {
-		console.log('mounted进来了');
+		console.log(this.$store.state.NowPlayinglistData)
 		if(this.$store.state.ComingSoonlistData.length === 0){
-			console.log('判断请求数据空进来了');
 			//数据请求 -存储store
 			this.$store.dispatch('GetComingSoonDate')
 		}
 		else{
 			//使用缓存
-			
 			console.log('使用缓存')
 		}
 	},

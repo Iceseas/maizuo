@@ -51,12 +51,6 @@ export default {
 .login{
     top: 160px;
     left: 50%;
-    i{
-        position: absolute;
-        right: 7px;
-        top: 50%;
-        transform: translateY(-50%);
-    }
 }
 .login-input{
     position: absolute;
@@ -64,14 +58,12 @@ export default {
     top: 160px;
     left: 50%;
     transform: translateX(-50%);
-    border: 1px solid #26a2ff;
+    border-bottom: 1px solid #26a2ff;
     border-radius: 4px;
     height: 40px;
     box-sizing: border-box;
 }
- .login-inputbody:focus .login-input{
-    border: 3px solid #26a2ff;
-}
+
 .login-inputbody{
     height: 100%;
     box-sizing: border-box;
@@ -102,7 +94,7 @@ export default {
     font-size: 14px;
     position: absolute;
     width: 300px;
-    top: 310px;
+    top: 350px;
     left: 50%;
     height: 40px;
     transform: translateX(-50%);

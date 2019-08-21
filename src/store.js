@@ -11,11 +11,13 @@ export default new Vuex.Store({
         isfilmfooNavShow: true,
         isDetailBuyShow: true,
         //comingsoon组件数据
+        ComingSoontotal: 0,
         ComingSoonlistData: [],
         ComingSoonAjaxNum: 1,
         ComingSoonisInfinite: false,
         ComingSoonDataGet: true,
         //nowplaying组件数据
+        NowPlayingtotal: 0,
         NowPlayinglistData: [],
         NowPlayingAjaxNum: 1,
         NowPlayingisInfinite: false,
@@ -36,6 +38,7 @@ export default new Vuex.Store({
         DetailNavHide(state, loop) {
             state.isDetailBuyShow = loop;
         },
+        //缓存请求的数据
         cacheComingSoonlistAjax(state, loop) {
             //拼接新老数据
             state.ComingSoonlistData = [...state.ComingSoonlistData, ...loop];
@@ -44,6 +47,7 @@ export default new Vuex.Store({
         cacheNowplayinglistAjax(state, loop) {
             //拼接新老数据
             state.NowPlayinglistData = [...state.NowPlayinglistData, ...loop];
+            state.NowPlayingtotal = state.NowPlayinglistData.length;
         },
         //改变请求的页数
         ComingSoonScrollDownchangeNum(state, loop) {
@@ -64,6 +68,7 @@ export default new Vuex.Store({
     },
     actions: {
         GetComingSoonDate(store) {
+
             Indicator.open({
                 text: '加载中...',
                 spinnerType: 'fading-circle'
@@ -78,12 +83,15 @@ export default new Vuex.Store({
             }).then((res) => {
                 //判断是否请求完数据，如果请求完，禁用下拉请求数据事件
                 if (res.data.data.films.length == 0) {
+
                     store.state.ComingSoonDataGet = false;
                 }
+
                 //调用方法处理数据
                 store.commit('cacheComingSoonlistAjax', res.data.data.films);
                 //已请求完数据，关闭等待动画
                 Indicator.close();
+
                 //请求完数据，开启滚轮
                 store.state.ComingSoonisInfinite = false;
             });
@@ -101,9 +109,10 @@ export default new Vuex.Store({
                     'X-Host': 'mall.film-ticket.film.list'
                 }
             }).then((res) => {
-                if (res.data.data.films.length == 0) {
+                if (res.data.data.total == store.state.NowPlayingtotal) {
                     store.state.NowPlayingDataGet = false;
                 }
+                console.log(res.data)
                 store.commit('cacheNowplayinglistAjax', res.data.data.films);
                 Indicator.close();
                 store.state.NowPlayingisInfinite = false;

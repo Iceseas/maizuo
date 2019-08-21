@@ -42,6 +42,10 @@ body,html{
 	transform: translate(-50%,-50%);
 	position: absolute;
 }
+.master-box{
+	background: #eee;
+	height: 100%;
+}
 a{
 -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 -webkit-user-select: none;
@@ -51,6 +55,9 @@ a{
 .nowpl-img,.nowpl-ul-li-pic{
 	width: 66px;
 	height: 91px;
+}
+.nowpl-ul{
+	background: #fff;
 }
 .nowpl-ul-li{
 	border-bottom: 1px solid #eee;
@@ -87,6 +94,9 @@ a{
 	color: #9b9b9b;
 	font-size: 14px;
 	font-weight: 500;
+}
+.yahei-font{
+	font-family: Microsoft YaHei,Tahoma,Helvetica,Arial,sans-serif;
 }
 .nowpl-grade-r{
 	color: #ffaf40;

@@ -1,25 +1,25 @@
 <template>
-<div>
+<div class="cinema-box">
 	<div class="cinema-headers">
 		<ul class="cinema-headers-ul">
-			<li class="cinema-headers-ul-li city">北京</li>
-			<li class="cinema-headers-ul-li cinemaBT">影院</li>
-			<li class="cinema-headers-ul-li cinemaSearch">搜索</li>
+			<li class="cinema-headers-ul-li city yahei-font">北京</li>
+			<li class="cinema-headers-ul-li cinemaBT yahei-font">影院</li>
+			<li class="cinema-headers-ul-li cinemaSearch yahei-font">搜索</li>
 		</ul>
 	</div>
 	<div class="cinema-headers-selects">
 		<ul class="cinema-headers-selects-ul">
-			<li class="cinema-headers-selects-ul-li">全城</li>
-			<li class="cinema-headers-selects-ul-li">APP订票</li>
-			<li class="cinema-headers-selects-ul-li">最近去过</li>
+			<li class="cinema-headers-selects-ul-li yahei-font">全城</li>
+			<li class="cinema-headers-selects-ul-li yahei-font">APP订票</li>
+			<li class="cinema-headers-selects-ul-li yahei-font">最近去过</li>
 		</ul>
 	</div>
 <div class="cinemas-scroll" :style="{height:sreenheight}"> 
 	<ul class="cinemas-ul">
 		<li class="cinemas-ul-li" v-for="data in cinemas" :key="data.cinemaId">
-		<p class="cinemas-name">{{data.name}}</p>
-		<p class="cinemas-address font-grow">{{data.address}}</p>
-		<span class="cinemas-lowPrice">¥ {{data.lowPrice | lowpriceFilter}} 起</span>
+		<p class="cinemas-name yahei-font">{{data.name}}</p>
+		<p class="cinemas-address font-grow yahei-font">{{data.address}}</p>
+		<span class="cinemas-lowPrice yahei-font">¥ {{data.lowPrice | lowpriceFilter}} 起</span>
 		</li>
 	</ul>
 </div>
@@ -78,6 +78,9 @@ export default {
 }
 </script>
 <style lang="scss" scope >
+.cinema-box{
+	background: #fff;
+}
 .cinemas-ul{
 	.cinemas-ul-li{
 		height: 60px;

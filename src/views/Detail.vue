@@ -4,11 +4,11 @@
          <img :src="details.poster" />
      </div>
      <div class="detail-synopsis">
-         <p class="detail-synopsis-name">{{details.name}}</p>
-         <p class="detail-synopsis-category font-grow lh">{{details.category}}</p>
-         <p class="detail-synopsis-time font-grow lh">上映</p>
-         <p class="detail-synopsis-nation font-grow lh">{{details.nation}} | {{details.runtime}} 分钟</p>
-         <span class="detail-synopsis-grade">
+         <p class="detail-synopsis-name yahei-font">{{details.name}}</p>
+         <p class="detail-synopsis-category font-grow lh yahei-font">{{details.category}}</p>
+         <p class="detail-synopsis-time font-grow lh yahei-font">上映</p>
+         <p class="detail-synopsis-nation font-grow lh yahei-font">{{details.nation}} | {{details.runtime}} 分钟</p>
+         <span class="detail-synopsis-grade yahei-font">
              {{details.grade}}
          </span>
          <div :class="outshowclass" >
@@ -18,21 +18,21 @@
              <i class="iconfont icon-jiantou"></i></div>
          </div>
      <div class="detail-actorsImg">
-         <div class="actorsLabel">
+         <div class="actorsLabel yahei-font">
              演职人员
          </div>
          <div class="actorsimg">
              <Swiper tag="ul" :key="details.length">
                  <li class="actorsimg-ul-li swiper-slide" v-for="(data,index) in details.actors" :key="index">
                      <img class="actorsimg-img" :src="data.avatarAddress" />
-                     <p class="actorsimg-name">{{data.name}}</p>
-                     <p class="actorsimg-role font-grow">{{data.role}}</p>
+                     <p class="actorsimg-name yahei-font">{{data.name}}</p>
+                     <p class="actorsimg-role font-grow yahei-font">{{data.role}}</p>
                  </li>
              </Swiper>
          </div>
      </div>
      <div class="detail-photos">
-        <div class="actorsLabel">
+        <div class="actorsLabel yahei-font">
             剧照
         </div>
         <SwiperAuto tag="ul" :key="details.length" >
@@ -42,7 +42,7 @@
         </SwiperAuto>
      </div>
      <div class="detailBuy" v-show="$store.state.isDetailBuyShow">
-           <a class="detailBuy-a" href="javascript:;">选座购票</a>
+           <a class="detailBuy-a yahei-font" href="javascript:;">选座购票</a>
     </div>
     </div>
 </template>

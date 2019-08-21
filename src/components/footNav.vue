@@ -1,13 +1,13 @@
 <template>
     <div class="footNav-Box">
         <router-link to="/film" activeClass="active" class="footNav" >
-        <span class="mid-position">电影</span>
+        <span class="mid-position yahei-font">电影</span>
         <i class="iconfont icon-film mid-position"></i></router-link>
         <router-link to="/cinema" activeClass="active" class="footNav" >
-        <span class="mid-position">影院</span>
+        <span class="mid-position yahei-font">影院</span>
         <i class="iconfont icon-cinema mid-position"></i></router-link>
         <router-link to="/center" activeClass="active" class="footNav">
-        <span class="mid-position">我的</span>
+        <span class="mid-position yahei-font">我的</span>
         <i class="iconfont icon-my mid-position"></i></router-link>
     </div>
 </template>

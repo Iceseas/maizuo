@@ -6,6 +6,8 @@ import Center from './views/center.vue'
 import nowPlaying from './views/Film/nowPlaying.vue'
 import comingSoon from './views/Film/comingSoon.vue'
 import Detail from './views/Detail.vue'
+import login from './views/login.vue'
+import city from './views/city.vue'
 
 Vue.use(Router) //注册路由模块
 
@@ -39,6 +41,14 @@ export default new Router({
             path: '/detail/:filmid',
             name: 'detail',
             component: Detail
+        },
+        {
+            path: '/login',
+            component: login
+        },
+        {
+            path: '/city',
+            component: city
         },
         {
             path: '*',

@@ -1,10 +1,10 @@
 <template>
 
 <ul id="headnav-ul">
-    <router-link to="/film/nowPlaying" tag="li" activeClass="headNavActive" id="headnav-li">
+    <router-link to="/film/nowPlaying" tag="li" activeClass="headNavActive" class="yahei-font" id="headnav-li">
     正在热映
     </router-link>
-    <router-link to="/film/comingSoon" tag="li" activeClass="headNavActive" id="headnav-li">
+    <router-link to="/film/comingSoon" tag="li" activeClass="headNavActive" class="yahei-font" id="headnav-li">
     即将上映
     </router-link>
 </ul>
@@ -17,6 +17,7 @@ export default {
 </script>
 <style scope>
 #headnav-ul{
+    background: #fff;
     display: flex;
     list-style: none;
 }

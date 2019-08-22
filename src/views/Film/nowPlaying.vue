@@ -9,6 +9,8 @@
 				</div>
 				<div class="nowpl-ul-li-intro" @click="checkDetail(data.filmId)">
 					<p class="nowpl-name yahei-font">{{data.name}}</p>
+					<i class="iconfont icon-d filmtype" v-if="data.filmType.name=='2D'"></i>
+					<i class="iconfont icon-d1 filmtype" v-else></i>
 					<p class="nowpl-grade-l font-grow yahei-font">观众评分
 						<span class="nowpl-grade-r yahei-font">{{data.grade}}</span>
 					</p>

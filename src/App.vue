@@ -89,6 +89,10 @@ a{
 .nowpl-name{
 	font-size: 16px;
 	font-weight: 500;
+	width: 170px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 }
 .font-grow{
 	color: #9b9b9b;

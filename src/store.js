@@ -11,6 +11,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
+        //获取头部轮播
+        bannersData: [],
         //控制底部导航显示
         isfilmfooNavShow: true,
         isDetailBuyShow: true,
@@ -92,7 +94,7 @@ export default new Vuex.Store({
     actions: {
         GetComingSoonDate(store) {
             Indicator.open({
-                text: '加载中...',
+                text: '加载中',
                 spinnerType: 'fading-circle'
             });
             axios({
@@ -119,7 +121,7 @@ export default new Vuex.Store({
         },
         GetNowPlayingDate(store) {
             Indicator.open({
-                text: '加载中...',
+                text: '加载热映中',
                 spinnerType: 'fading-circle'
             });
             axios({
@@ -144,7 +146,7 @@ export default new Vuex.Store({
         },
         GetCinemas(store) {
             Indicator.open({
-                text: '加载中...',
+                text: '定位中',
                 spinnerType: 'fading-circle'
             });
             axios({
@@ -167,6 +169,21 @@ export default new Vuex.Store({
                 })
 
             })
+        },
+        GetBanners(store) {
+            axios({
+                url: `https://m.maizuo.com/gateway?type=2&cityId=${store.state.cityID}&k=9912477`,
+                methods: 'get',
+                headers: {
+                    'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15656848532164663517222"}',
+                    'X-Host': 'mall.cfg.common-banner'
+                }
+            }).then((res) => {
+                console.log(res.data.data)
+                store.state.bannersData = res.data.data
+            }).catch((err) => {
+                console.log(err);
+            });
         }
     }
 })

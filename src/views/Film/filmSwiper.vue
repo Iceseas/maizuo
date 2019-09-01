@@ -3,9 +3,9 @@
 	<div class="choosecity" @click="selectcity()">
 		<p class="choosecity-cityname yahei-font">{{cityoutname}}</p>&nbsp;<i class="iconfont icon-jiantou-copy city-i"></i>
 	</div>
-	<Swiper :key="jsons.length">
-		<div class="swiper-slide" v-for="data in jsons" :key="data.id" >
-		<img class="swiper-slide-img" :src="data.imgUrl" alt="">
+	<Swiper :key="$store.state.bannersData.length">
+		<div class="swiper-slide" v-for="data in $store.state.bannersData" :key="data.id" >
+		<img class="swiper-slide-img" @click="checkDetail(data.actionData)" :src="data.imgUrl" alt="">
 	</div>
 	</Swiper>
 </div>
@@ -13,27 +13,14 @@
 
 <script>
 	import Swiper from '@/components/SwiperCommon'
-	import axios from 'axios'
 	export default {
-		data(){
+	data(){
         return {
-			jsons:[],
 			cityoutname:this.$store.state.cityname,
         }
     },
-		mounted() {
-        axios({
-		url: 'https://m.maizuo.com/gateway?type=2&cityId=210200&k=9912477',
-		methods: 'get',
-		headers: {
-			'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15656848532164663517222"}',
-			'X-Host': 'mall.cfg.common-banner'
-			}
-		}).then((res) => {	
-		this.jsons = res.data.data
-	}).catch((err)=>{
-		console.log(err);
-	});
+	mounted() {
+		this.$store.dispatch('GetBanners');
 	},
 	components:{
 		Swiper
@@ -41,7 +28,13 @@
 	methods:{
 		selectcity(){
 			this.$router.push('/city');
-		}
+		},
+		checkDetail(id){
+			//跳转路由，编程式导航
+			
+			let bannerfilmID = JSON.parse(id)
+			this.$router.push(`/detail/${bannerfilmID.businessId}`);
+		},
 	}
 }
 </script>

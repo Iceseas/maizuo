@@ -2,7 +2,11 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import { Indicator } from 'mint-ui';
+import BScroll from '@better-scroll/core'
+import ScrollBar from '@better-scroll/scroll-bar'
 
+
+BScroll.use(ScrollBar);
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -21,7 +25,14 @@ export default new Vuex.Store({
         NowPlayinglistData: [],
         NowPlayingAjaxNum: 1,
         NowPlayingisInfinite: false,
-        NowPlayingDataGet: true
+        NowPlayingDataGet: true,
+        //城市的ID值
+        cityID: 110100,
+        cityname: '北京',
+        //电影院的数据
+        CinemaData: [],
+        //vuethis的复制
+        vuethis: null
     },
     mutations: {
         //显示底部导航
@@ -65,6 +76,18 @@ export default new Vuex.Store({
         NowPlayingInfinite(state, loop) {
             state.NowPlayingisInfinite = loop;
         },
+        //改变cityid
+        changeCityID(state, loop) {
+            state.cityID = loop;
+        },
+        //改变显示的城市
+        changeCityName(state, loop) {
+            state.cityname = loop;
+        },
+        //获取vuethis
+        getVuethis(state, loop) {
+            state.vuethis = loop
+        }
     },
     actions: {
         GetComingSoonDate(store) {
@@ -73,7 +96,7 @@ export default new Vuex.Store({
                 spinnerType: 'fading-circle'
             });
             axios({
-                url: `https://m.maizuo.com/gateway?cityId=210200&pageNum=${store.state.ComingSoonAjaxNum}&pageSize=10&type=2&k=9800611`,
+                url: `https://m.maizuo.com/gateway?cityId=${store.state.cityID}&pageNum=${store.state.ComingSoonAjaxNum}&pageSize=10&type=2&k=9800611`,
                 methods: 'get',
                 headers: {
                     'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15656848532164663517222"}',
@@ -100,7 +123,7 @@ export default new Vuex.Store({
                 spinnerType: 'fading-circle'
             });
             axios({
-                url: `https://m.maizuo.com/gateway?cityId=210200&pageNum=${store.state.NowPlayingAjaxNum}&pageSize=10&type=1&k=9604590`,
+                url: `https://m.maizuo.com/gateway?cityId=${store.state.cityID}&pageNum=${store.state.NowPlayingAjaxNum}&pageSize=10&type=1&k=9604590`,
                 methods: 'get',
                 headers: {
                     'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15656848532164663517222"}',
@@ -119,5 +142,31 @@ export default new Vuex.Store({
                 store.state.NowPlayingisInfinite = false;
             });
         },
+        GetCinemas(store) {
+            Indicator.open({
+                text: '加载中...',
+                spinnerType: 'fading-circle'
+            });
+            axios({
+                url: `https://m.maizuo.com/gateway?cityId=${store.state.cityID}&ticketFlag=1&k=1573618`,
+                methods: 'get',
+                headers: {
+                    'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15656848532164663517222"}',
+                    'X-Host': 'mall.film-ticket.cinema.list'
+                }
+            }).then((res) => {
+                //console.log(res.data.data.cinemas)
+                store.state.CinemaData = res.data.data.cinemas
+                Indicator.close();
+                console.log(store.state.vuethis)
+                store.state.vuethis.$nextTick(() => {
+                    new BScroll('.cinemas-scroll', {
+                        scrollY: true,
+                        scrollbar: true,
+                    });
+                })
+
+            })
+        }
     }
 })

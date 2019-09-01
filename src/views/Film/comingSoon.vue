@@ -78,7 +78,7 @@ export default {
 		}
 		else{
 			//使用缓存
-			console.log('使用缓存')
+			this.$store.dispatch('GetComingSoonDate')
 		}
 	},
 }

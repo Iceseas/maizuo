@@ -36,7 +36,7 @@
     </div>
     <mt-index-list class="city-list">
         <mt-index-section :index="data.index" v-for="data in pinyinarr" :key="data.index">
-        <mt-cell class="yahei-font " :title="item.name" v-for="item in data.cities" :key="item.cityId">
+        <mt-cell @click.native="showcityid(item.cityId,item.name)" class="yahei-font " :title="item.name" v-for="item in data.cities" :key="item.index">
         {{item.cities}}
         </mt-cell>
   </mt-index-section>
@@ -50,6 +50,7 @@ import axios from 'axios'
 import { IndexList, IndexSection } from 'mint-ui';
 import { Indicator } from 'mint-ui';
 import { Search } from 'mint-ui';
+//import { constants } from 'crypto';
 
 Vue.component(Search.name, Search);
 Vue.component(IndexList.name, IndexList);
@@ -75,24 +76,33 @@ export default {
                 newarr = list.filter((item)=>
                     item.pinyin.substring(0,1)===arr[i].toLowerCase()
                 )
+                //console.log(newarr);
                 if(!newarr.length == 0)
                 newlist.push({
                     index:arr[i],
                     cities:newarr
                 })
             }
+            console.log(newlist)
             for(let index = 0;index<list.length;index++){
                 this.isHot = list.filter(item=>{item.isHot == 1})
             }
-            console.log(this.isHot)
+            
             this.pinyinarr = newlist;
             
         },
         citygoback(){
             this.$router.go(-1);
+        },
+        showcityid(id,name){
+            this.$store.commit('changeCityID',id);
+            this.$store.commit('changeCityName',name);
+            this.$router.go(-1);
+            this.$store.dispatch('GetNowPlayingDate')
         }
     },
     mounted() {
+        
         this.$store.commit('FooNavHide',false)
         this.citiesHeight = document.documentElement.offsetHeight + 'px';
         Indicator.open({

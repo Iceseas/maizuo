@@ -1,7 +1,7 @@
 <template>
 <div class="flim-box-swiper">
 	<div class="choosecity" @click="selectcity()">
-		<p class="choosecity-cityname yahei-font">大连</p>&nbsp;<i class="iconfont icon-jiantou-copy city-i"></i>
+		<p class="choosecity-cityname yahei-font">{{cityoutname}}</p>&nbsp;<i class="iconfont icon-jiantou-copy city-i"></i>
 	</div>
 	<Swiper :key="jsons.length">
 		<div class="swiper-slide" v-for="data in jsons" :key="data.id" >
@@ -17,7 +17,8 @@
 	export default {
 		data(){
         return {
-            jsons:[]
+			jsons:[],
+			cityoutname:this.$store.state.cityname,
         }
     },
 		mounted() {

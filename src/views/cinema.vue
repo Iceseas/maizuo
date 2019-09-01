@@ -2,7 +2,7 @@
 <div class="cinema-box">
 	<div class="cinema-headers">
 		<ul class="cinema-headers-ul">
-			<li class="cinema-headers-ul-li city yahei-font">北京</li>
+			<li @click="tochangeCity()" class="cinema-headers-ul-li city yahei-font">{{cinemacity}} <i style="font-size:12px" class="iconfont icon-jiantou-copy"></i> </li>
 			<li class="cinema-headers-ul-li cinemaBT yahei-font">影院</li>
 			<li class="cinema-headers-ul-li cinemaSearch yahei-font">搜索</li>
 		</ul>
@@ -16,7 +16,7 @@
 	</div>
 <div class="cinemas-scroll" :style="{height:sreenheight}"> 
 	<ul class="cinemas-ul">
-		<li class="cinemas-ul-li" v-for="data in cinemas" :key="data.cinemaId">
+		<li class="cinemas-ul-li" v-for="data in $store.state.CinemaData" :key="data.cinemaId">
 		<p class="cinemas-name yahei-font">{{data.name}}</p>
 		<p class="cinemas-address font-grow yahei-font">{{data.address}}</p>
 		<span class="cinemas-lowPrice yahei-font">¥ {{data.lowPrice | lowpriceFilter}} 起</span>
@@ -28,12 +28,7 @@
 
 <script>
 import Vue from 'vue'
-import axios from 'axios'
-import BScroll from '@better-scroll/core'
-import ScrollBar from '@better-scroll/scroll-bar'
-import { Indicator } from 'mint-ui';
 
-BScroll.use(ScrollBar);
 
 
 Vue.filter('lowpriceFilter',(data)=>{
@@ -44,36 +39,19 @@ export default {
 	data() {
 		return {
 			cinemas:[],
-			sreenheight:'0px'
+			sreenheight:'0px',
+			cinemacity:this.$store.state.cityname,
 		}
 	},
 	mounted(){
 		this.sreenheight = document.documentElement.clientHeight - 140 +'px';
-		Indicator.open({
-		text: '加载中...',
-		spinnerType: 'fading-circle'
-		});
-		axios({
-                url: 'https://m.maizuo.com/gateway?cityId=110100&ticketFlag=1&k=1573618',
-                methods: 'get',
-                headers: {
-                    'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15656848532164663517222"}',
-                    'X-Host': 'mall.film-ticket.cinema.list'
-                }
-            }).then((res) => {
-                //console.log(res.data.data.cinemas)
-                this.cinemas = res.data.data.cinemas;
-				this.$nextTick(() => {
-                    new BScroll('.cinemas-scroll', {
-                        scrollY: true,
-                        scrollbar: true,
-					});
-					Indicator.close();
-                })
-            })
-			
-		
-		
+		this.$store.commit('getVuethis',this);
+		this.$store.dispatch('GetCinemas')	
+	},
+	methods:{
+		tochangeCity(){
+			this.$router.push('/city');
+		}
 	}
 }
 </script>

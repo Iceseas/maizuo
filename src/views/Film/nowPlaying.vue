@@ -3,7 +3,7 @@
 		infinite-scroll-immediate-check="true"
 		:infinite-scroll-disabled="$store.state.NowPlayingisInfinite"
 		>
-			<li class="nowpl-ul-li" v-for="data in $store.state.NowPlayinglistData" :key="data.filmId" >
+			<li class="nowpl-ul-li" v-for="data in $store.state.NowPlayinglistData" :key="data.index" >
 				<div class="nowpl-ul-li-pic fl" @click="checkDetail(data.filmId)">
 					<img class="nowpl-img" :src="data.poster" >
 				</div>
@@ -66,7 +66,7 @@ export default {
 		}
 		else{
 			//使用缓存
-			console.log('使用缓存')
+			this.$store.dispatch('GetNowPlayingDate')
 		}
 	},
 }

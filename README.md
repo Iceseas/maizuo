@@ -14,10 +14,11 @@
 用途| 接口url
 ---|---
 获取相应电影的内容 | https://m.maizuo.com/gateway?filmId=${this.$route.params.filmid}&k=7015510
-获取正在热映 | https://m.maizuo.com/gateway?cityId=210200&pageNum=1&pageSize=10&type=1&k=9604590
-获取即将上映 | https://m.maizuo.com/gateway?cityId=210200&pageNum=1&pageSize=10&type=2&k=9800611
-获取头部轮播 | https://m.maizuo.com/gateway?type=2&cityId=210200&k=9912477
+获取正在热映 | https://m.maizuo.com/gateway?cityId=${store.state.cityID}&pageNum=${store.state.NowPlayingAjaxNum}&pageSize=10&type=1&k=9604590
+获取即将上映 | https://m.maizuo.com/gateway?cityId=${store.state.cityID}&pageNum=${store.state.ComingSoonAjaxNum}&pageSize=10&type=2&k=9800611
+获取头部轮播 | https://m.maizuo.com/gateway?type=2&cityId=${store.state.cityID}&k=9912477
 获取城市信息 | https://m.maizuo.com/gateway?k=2871341
+获取影院信息 | https://m.maizuo.com/gateway?cityId=${store.state.cityID}&ticketFlag=1&k=1573618
 
 
 

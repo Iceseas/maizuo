@@ -1,13 +1,12 @@
 # 卖座移动端网页平台的开发
 # 环境+工具
   1. VUE相关：Vue Cli,Vue.js,Vue.Vuex,Vue.Router
-  2. 运行环境：window 10
+  2. 运行环境：手机浏览器
   3. 接口：均用卖座网的真实接口进行数据获取
   4. 开发工具:Hbuilder X，VScode，chrome
-  5. 构建工具:babel.js,webpack等
-  6. 组件库：npm
-  7. 运用的组件：axios,swiper,better-scroll等
-  8. UI组件：mint UI
+  5. 组件库：npm
+  6. 运用的组件：axios,swiper,better-scroll等
+  7. UI组件：mint UI
 # 接口
   
 

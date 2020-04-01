@@ -7,6 +7,10 @@
   5. 组件库：npm
   6. 运用的组件：axios,swiper,better-scroll等
   7. UI组件：mint UI
+  
+## 页面展示  
+
+![image](https://github.com/Iceseas/maizuo/blob/master/readmeimg/initpintu_%E5%89%AF%E6%9C%AC.jpg)
 # 接口
   
 
@@ -18,6 +22,7 @@
 获取头部轮播 | https://m.maizuo.com/gateway?type=2&cityId=${store.state.cityID}&k=9912477
 获取城市信息 | https://m.maizuo.com/gateway?k=2871341
 获取影院信息 | https://m.maizuo.com/gateway?cityId=${store.state.cityID}&ticketFlag=1&k=1573618
+
 
 
 

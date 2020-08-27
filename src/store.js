@@ -107,6 +107,7 @@ export default new Vuex.Store({
         },
         ComingSoonMounted(state, loop) {
             state.ComingSoonAjaxNum = loop;
+            state.ComingSoonDataGet = true;
         },
         //改变显示的城市
         changeCityName(state, loop) {

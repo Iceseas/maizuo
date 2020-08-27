@@ -39,8 +39,7 @@ export default {
 <style scope >
 .film-box-body{
     width: 100%;
-    overflow: scroll;
-    margin-bottom: 5rem;
+    margin-bottom: 4rem;
     margin-top: 4.5rem;
 }
 .presalebtn{

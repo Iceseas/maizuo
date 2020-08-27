@@ -2,8 +2,8 @@
     <div class="cities-box" :style="{height:citiesHeight}">
     <div class="search-city">
         <div class="nowcity yahei-font">
-        <div class="city-goback" @click="citygoback()"><i class="iconfont icon-jiantou3"></i></div>
-        当前城市 - 
+        <div class="city-goback" @click="citygoback()"><i class="iconfont icon-arrow-left"></i></div>
+        当前城市 
         </div>
         <div class="citysearch">
         <mt-search
@@ -24,11 +24,8 @@
             </div>
             <div class="hotcity-list">
                 <ul class="hotcity-list-ul">
-                    <li class="hotcity-list-ul-li" >
-                        <div class="city-point">北京</div>
-                    </li>
-                    <li class="hotcity-list-ul-li" >
-                        <div class="city-point">天津</div>
+                    <li v-for="item in isHot" :key="item.cityId" class="hotcity-list-ul-li" >
+                        <div class="city-point">{{item.name}}</div>
                     </li>
                 </ul>
             </div>
@@ -76,33 +73,29 @@ export default {
                 newarr = list.filter((item)=>
                     item.pinyin.substring(0,1)===arr[i].toLowerCase()
                 )
-                //console.log(newarr);
                 if(!newarr.length == 0)
                 newlist.push({
                     index:arr[i],
                     cities:newarr
                 })
             }
-            console.log(newlist)
-            for(let index = 0;index<list.length;index++){
-                this.isHot = list.filter(item=>{item.isHot == 1})
-            }
-            
+            this.isHot = list.filter(item=>{
+                return item.isHot == 1
+            })
             this.pinyinarr = newlist;
             
         },
         citygoback(){
-            this.$router.go(-1);
+            this.$router.replace('/nowPlaying');
         },
         showcityid(id,name){
             this.$store.commit('changeCityID',id);
             this.$store.commit('changeCityName',name);
-            this.$router.go(-1);
+            this.$router.push('/nowPlaying');
             this.$store.dispatch('GetNowPlayingDate')
         }
     },
     mounted() {
-        
         this.$store.commit('FooNavHide',false)
         this.citiesHeight = document.documentElement.offsetHeight + 'px';
         Indicator.open({
@@ -117,7 +110,6 @@ export default {
                 'X-Host': 'mall.film-ticket.city.list'
             }
         }).then((res)=>{
-            console.log(res.data)
             this.checkPinyin(res.data.data.cities);
             Indicator.close();
         })
@@ -146,7 +138,7 @@ export default {
 }
 .city-goback{
     width: 40px;
-    left: 15px;
+    left: 5px;
     position: absolute;
 }
 .nowcity{

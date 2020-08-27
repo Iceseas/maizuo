@@ -1,21 +1,21 @@
 <template>
     <div>
-    <filmeswiper ref="filmSwiper"></filmeswiper>
+        <div class="chooseCity" @click="gotoChooseCity">
+            <!-- <i class="iconfont icon-green"></i> -->
+            大连
+        </div>
     <filmHeadNav :class="isFixed?'headfixed':''"></filmHeadNav>
-
     <div class="film-box-body">
     <router-view></router-view>
     </div>
     </div>
 </template>
 <script>
-import filmeswiper from '@/views/Film/filmSwiper';
 import filmHeadNav from '@/views/Film/nowPlaying/headNav'
 
 
 export default {
     components:{
-        filmeswiper,
         filmHeadNav
     },
     data() {
@@ -24,23 +24,21 @@ export default {
         }
     },
     mounted() {
-        // window.addEventListener('scroll', this.handleScoll, true);
         window.onscroll = this.handleScoll;
     },
     methods: {
         handleScoll(){
             let top = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset
-            // console.log("top:"+ top);
-            // console.log('height'+this.$refs.filmSwiper.$el.offsetHeight)
             if(top > this.$refs.filmSwiper.$el.offsetHeight)
             {
                 this.isFixed = true;
-                // console.log('fixed')
             }
             else{
                 this.isFixed = false;
-                // console.log('unfixed')
             }
+        },
+        gotoChooseCity() {
+            this.$router.push('/city')
         }
     },
     destroyed() {
@@ -78,5 +76,18 @@ export default {
     text-align: right;
     padding-right: 20px;
     box-sizing: border-box; 
+}
+.chooseCity{
+    position: fixed;
+    color: #fff;
+    width: 40px;
+    border-radius: 6px;
+    height: 20px !important;
+    background: rgb(209, 209, 209);
+    display: inline-block;
+    text-align: center;
+    line-height: 20px;
+    left: 7px;
+    top: 7px;
 }
 </style>

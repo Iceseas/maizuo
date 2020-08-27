@@ -81,7 +81,6 @@ export default {
         this.$store.commit('FooNavHide',false)
         this.$store.commit('DetailNavShow',true)
         //根据路由得到点击的电影id
-        //console.log(this.$route.params.filmid)
         Indicator.open({
 		text: '加载中...',
 		spinnerType: 'fading-circle'
@@ -94,7 +93,6 @@ export default {
                 'X-Host': 'mall.film-ticket.film.info'
             }
         }).then(res=>{
-            console.log(res.data.data.film)
             this.details = res.data.data.film;
             Indicator.close();
         }).catch((err)=>{
@@ -172,7 +170,7 @@ export default {
     opacity: 0.5;
 }
 .go-back-btn{
-    position: absolute;
+    position: fixed;
     width: 30px;
     height: 30px;
     left: 7px;

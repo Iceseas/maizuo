@@ -45,15 +45,12 @@ export default {
 	methods:{
 		checkDetail(id){
 			//跳转路由，编程式导航-路径跳转
-			console.log('详情进来了');
 			this.$router.push(`/detail/${id}`);
-			console.log('详情结束了');
 			//跳转路由，编程式导航-命名跳转
-			// this.$router.pish({name:'detail',params:{id:id}});
+			// this.$router.pish({name:'detail',params:{id:id}});  
 		},
 		loadMore(){
 			if(this.$store.state.ComingSoonDataGet){
-				console.log('loadmore进来了');
 				//请求的页数加一
 			this.count++;
 			//请求数据过程中开启无限滚轮禁用
@@ -64,14 +61,12 @@ export default {
 			this.$store.dispatch('GetComingSoonDate')
 			}
 			else{
-				console.log('loadmore结束了');
 				return;
 			}
 			
 		},
 	},
 	mounted() {
-		console.log(this.$store.state.NowPlayinglistData)
 		if(this.$store.state.ComingSoonlistData.length === 0){
 			//数据请求 -存储store
 			this.$store.dispatch('GetComingSoonDate')

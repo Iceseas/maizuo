@@ -31,7 +31,6 @@
 		},
 		checkDetail(id){
 			//跳转路由，编程式导航
-			
 			let bannerfilmID = JSON.parse(id)
 			this.$router.push(`/detail/${bannerfilmID.businessId}`);
 		},

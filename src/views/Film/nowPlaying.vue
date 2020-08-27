@@ -59,7 +59,6 @@ export default {
 		}
 	},
 	mounted() {	
-		// console.log(this.$store.state.NowPlayinglistData)
 		if(this.$store.state.NowPlayinglistData.length === 0){
 			//数据请求 -存储store
 			this.$store.dispatch('GetNowPlayingDate')

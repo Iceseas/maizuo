@@ -33,7 +33,6 @@
         },
 		mounted(){
 			axios.get('/ajax/comingList?ci=65&token=&limit=10').then(res=>{
-                console.log(res.data.coming)
                 this.footlist = res.data.coming;
 			})
 		}

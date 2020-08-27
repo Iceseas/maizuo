@@ -104,6 +104,7 @@ export default new Vuex.Store({
         // 初次加载时初始化
         NowPlayingMounted(state, loop) {
             state.NowPlayingAjaxNum = loop;
+            state.NowPlayingDataGet = true;
         },
         ComingSoonMounted(state, loop) {
             state.ComingSoonAjaxNum = loop;

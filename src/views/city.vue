@@ -24,7 +24,7 @@
             </div>
             <div class="hotcity-list">
                 <ul class="hotcity-list-ul">
-                    <li v-for="item in isHot" :key="item.cityId" class="hotcity-list-ul-li" >
+                    <li v-for="item in isHot" :key="item.cityId" class="hotcity-list-ul-li" @click="showcityid(item.cityId,item.name)" >
                         <div class="city-point">{{item.name}}</div>
                     </li>
                 </ul>
@@ -89,9 +89,10 @@ export default {
             this.$router.replace('/nowPlaying');
         },
         showcityid(id,name){
+            console.log(111)
             this.$store.commit('changeCityID',id);
             this.$store.commit('changeCityName',name);
-            this.$router.push('/nowPlaying');
+            this.$router.go(-1);
             this.$store.dispatch('GetNowPlayingDate')
         }
     },
@@ -192,9 +193,6 @@ export default {
     border-radius: 6px;
     box-sizing: border-box;
     font-size: 12px;
-}
-.city-point:active{
-    background:  #fafafa;
 }
 .hotcity-list-ul-li{
     float: left;

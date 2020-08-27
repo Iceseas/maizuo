@@ -2,7 +2,7 @@
 <div class="cinema-box">
 	<div class="cinema-headers">
 		<ul class="cinema-headers-ul">
-			<li @click="tochangeCity()" class="cinema-headers-ul-li city yahei-font">{{cinemacity}} <i style="font-size:12px" class="iconfont icon-jiantou-copy"></i> </li>
+			<li @click="tochangeCity()" class="cinema-headers-ul-li city yahei-font">{{cinemacity}} <i style="font-size:12px" class="iconfont icon-duduyinleappicon1401"></i> </li>
 			<li class="cinema-headers-ul-li cinemaBT yahei-font">影院</li>
 			<li class="cinema-headers-ul-li cinemaSearch yahei-font">搜索</li>
 		</ul>

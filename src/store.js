@@ -26,6 +26,8 @@ export default new Vuex.Store({
         NowPlayingtotal: 0,
         NowPlayinglistData: [],
         NowPlayingAjaxNum: 1,
+        NowPlayingisSameCity: false,
+        ComingSoonisSameCity: false,
         NowPlayingisInfinite: false,
         NowPlayingDataGet: true,
         //城市的ID值
@@ -54,11 +56,21 @@ export default new Vuex.Store({
         //缓存请求的数据
         cacheComingSoonlistAjax(state, loop) {
             //拼接新老数据
+            if (state.ComingSoonisSameCity === true) {
+                state.ComingSoonlistData = []
+                state.ComingSoonAjaxNum = 1;
+                state.ComingSoonisSameCity = false;
+            }
             state.ComingSoonlistData = [...state.ComingSoonlistData, ...loop];
         },
         //缓存请求的数据
         cacheNowplayinglistAjax(state, loop) {
             //拼接新老数据
+            if (state.NowPlayingisSameCity === true) {
+                state.NowPlayinglistData = []
+                state.NowPlayingAjaxNum = 1;
+                state.NowPlayingisSameCity = false;
+            }
             state.NowPlayinglistData = [...state.NowPlayinglistData, ...loop];
 
         },
@@ -80,7 +92,21 @@ export default new Vuex.Store({
         },
         //改变cityid
         changeCityID(state, loop) {
+            if (state.cityID === loop) {
+                state.ComingSoonisSameCity = false;
+                state.NowPlayingisSameCity = false;
+            } else {
+                state.ComingSoonisSameCity = true;
+                state.NowPlayingisSameCity = false;
+            }
             state.cityID = loop;
+        },
+        // 初次加载时初始化
+        NowPlayingMounted(state, loop) {
+            state.NowPlayingAjaxNum = loop;
+        },
+        ComingSoonMounted(state, loop) {
+            state.ComingSoonAjaxNum = loop;
         },
         //改变显示的城市
         changeCityName(state, loop) {
@@ -93,8 +119,11 @@ export default new Vuex.Store({
     },
     actions: {
         GetComingSoonDate(store) {
+            if (store.state.ComingSoonAjaxNum === 1) {
+                store.state.ComingSoonlistData = []
+            }
             Indicator.open({
-                text: '加载中',
+                text: '加载即将上映中',
                 spinnerType: 'fading-circle'
             });
             axios({
@@ -107,10 +136,8 @@ export default new Vuex.Store({
             }).then((res) => {
                 //判断是否请求完数据，如果请求完，禁用下拉请求数据事件
                 if (res.data.data.films.length == 0) {
-
                     store.state.ComingSoonDataGet = false;
                 }
-
                 //调用方法处理数据
                 store.commit('cacheComingSoonlistAjax', res.data.data.films);
                 //已请求完数据，关闭等待动画
@@ -120,6 +147,9 @@ export default new Vuex.Store({
             });
         },
         GetNowPlayingDate(store) {
+            if (store.state.NowPlayingAjaxNum === 1) {
+                store.state.NowPlayinglistData = []
+            }
             Indicator.open({
                 text: '加载热映中',
                 spinnerType: 'fading-circle'
@@ -133,7 +163,6 @@ export default new Vuex.Store({
                 }
             }).then((res) => {
                 if (res.data.data.films.length == 0) {
-
                     store.state.NowPlayingDataGet = false;
                 }
                 //调用方法处理数据
@@ -160,7 +189,6 @@ export default new Vuex.Store({
                 //console.log(res.data.data.cinemas)
                 store.state.CinemaData = res.data.data.cinemas
                 Indicator.close();
-                console.log(store.state.vuethis)
                 store.state.vuethis.$nextTick(() => {
                     new BScroll('.cinemas-scroll', {
                         scrollY: true,
@@ -179,7 +207,6 @@ export default new Vuex.Store({
                     'X-Host': 'mall.cfg.common-banner'
                 }
             }).then((res) => {
-                console.log(res.data.data)
                 store.state.bannersData = res.data.data
             }).catch((err) => {
                 console.log(err);

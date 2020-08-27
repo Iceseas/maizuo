@@ -2,11 +2,11 @@
     <div>
         <div class="chooseCity" @click="gotoChooseCity">
             <!-- <i class="iconfont icon-green"></i> -->
-            大连
+            {{this.$store.state.cityname}}
         </div>
-    <filmHeadNav :class="isFixed?'headfixed':''"></filmHeadNav>
+    <filmHeadNav class="headfixed"></filmHeadNav>
     <div class="film-box-body">
-    <router-view></router-view>
+        <router-view></router-view>
     </div>
     </div>
 </template>
@@ -24,19 +24,8 @@ export default {
         }
     },
     mounted() {
-        window.onscroll = this.handleScoll;
     },
     methods: {
-        handleScoll(){
-            let top = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset
-            if(top > this.$refs.filmSwiper.$el.offsetHeight)
-            {
-                this.isFixed = true;
-            }
-            else{
-                this.isFixed = false;
-            }
-        },
         gotoChooseCity() {
             this.$router.push('/city')
         }
@@ -50,7 +39,9 @@ export default {
 <style scope >
 .film-box-body{
     width: 100%;
-    margin-bottom: 4rem;
+    overflow: scroll;
+    margin-bottom: 5rem;
+    margin-top: 4.5rem;
 }
 .presalebtn{
 	width: 50px;
@@ -67,10 +58,9 @@ export default {
 .headfixed{
     position: fixed;
     top: 0;
-    background: #fff;
     width: 100%;
     height: 60px;
-    z-index: 999;
+    z-index: 2;
 }
 .swiper-pagination{
     text-align: right;
@@ -87,7 +77,9 @@ export default {
     display: inline-block;
     text-align: center;
     line-height: 20px;
-    left: 7px;
-    top: 7px;
+    left: 15px;
+    top: 20px;
+    z-index: 4;
+    font-size: 12px;
 }
 </style>

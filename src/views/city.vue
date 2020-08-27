@@ -89,7 +89,6 @@ export default {
             this.$router.replace('/nowPlaying');
         },
         showcityid(id,name){
-            console.log(111)
             this.$store.commit('changeCityID',id);
             this.$store.commit('changeCityName',name);
             this.$router.go(-1);

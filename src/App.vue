@@ -28,6 +28,7 @@ export default {
 body,
 html {
   height: 100%;
+  background: #eee;
 }
 .fl {
   float: left;
@@ -90,6 +91,7 @@ a {
   font-size: 16px;
   font-weight: 500;
   width: 170px;
+  margin-right: 10px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

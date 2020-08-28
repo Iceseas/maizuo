@@ -1,6 +1,6 @@
 # 卖座移动端网页平台的开发
 # 环境+工具
-  1. VUE相关：Vue Cli,Vue.js,Vue.Vuex,Vue.Router
+  1. VUE相关：Vue Cli,Vue.Vuex,Vue.Router
   2. 运行环境：手机浏览器
   3. 接口：均用卖座网的真实接口进行数据获取
   4. 开发工具:Hbuilder X，VScode，chrome
@@ -10,7 +10,13 @@
   
 ## 页面展示  
 
-![image](https://github.com/Iceseas/maizuo/blob/master/readmeimg/initpintu_%E5%89%AF%E6%9C%AC.jpg)
+![image](https://github.com/Iceseas/maizuo/blob/master/imgs/1.png)
+![image](https://github.com/Iceseas/maizuo/blob/master/imgs/2.png)
+![image](https://github.com/Iceseas/maizuo/blob/master/imgs/3.png)
+![image](https://github.com/Iceseas/maizuo/blob/master/imgs/4.png)
+![image](https://github.com/Iceseas/maizuo/blob/master/imgs/5.png)
+![image](https://github.com/Iceseas/maizuo/blob/master/imgs/6.png)
+![image](https://github.com/Iceseas/maizuo/blob/master/imgs/7.png)
 # 接口
   
 
